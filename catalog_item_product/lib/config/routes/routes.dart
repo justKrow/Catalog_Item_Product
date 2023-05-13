@@ -12,17 +12,14 @@ class Routes {
       case "/":
         return makeRoute(
           BlocProvider<HomeBloc>(
-            create: (context) => HomeBloc()..add(HomeInitialEvent()),
+            create: (context) => HomeBloc(),
             child: const HomeScreen(),
           ),
           settings,
         );
       case "/homePage":
         return makeRoute(
-          BlocProvider(
-            create: (context) => HomeBloc(),
-            child: const HomePage(),
-          ),
+          const HomePage(),
           settings,
         );
       case "/WishListPage":

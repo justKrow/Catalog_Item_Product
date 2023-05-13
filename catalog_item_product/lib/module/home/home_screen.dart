@@ -2,7 +2,7 @@ import 'package:catalog_item_product/module/home/ui/home_page.dart';
 import 'package:catalog_item_product/module/wishlist/fav_page.dart';
 import 'package:catalog_item_product/module/profile/profile_page.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
-import 'package:catalog_item_product/widget/side_bar.dart';
+import 'package:catalog_item_product/module/home/widget/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

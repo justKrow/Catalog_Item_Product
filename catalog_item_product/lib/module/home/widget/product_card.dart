@@ -8,25 +8,24 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProductCard extends StatefulWidget {
   final ProductDataModel productDataModel;
-
-  const ProductCard({super.key, required this.productDataModel});
+  final HomeBloc homeBloc;
+  const ProductCard(
+      {super.key, required this.productDataModel, required this.homeBloc});
 
   @override
   State<ProductCard> createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
-  late HomeBloc homeBloc;
   @override
   void initState() {
     super.initState();
-    homeBloc = BlocProvider.of<HomeBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: homeBloc,
+      value: widget.homeBloc,
       child: GestureDetector(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Stack(
@@ -59,9 +58,8 @@ class _ProductCardState extends State<ProductCard> {
                               state.isClicked ? AppColor.darkBlueColor : null,
                         ),
                         onPressed: () {
-                          BlocProvider.of<HomeBloc>(context).add(
-                              AddWishListIconClickedEvent(
-                                  clickedProducts: widget.productDataModel));
+                          widget.homeBloc.add(AddWishListIconClickedEvent(
+                              clickedProducts: widget.productDataModel));
                         },
                       );
                     },
@@ -110,11 +108,11 @@ class _ProductCardState extends State<ProductCard> {
               isScrollControlled: true,
               context: context,
               builder: (context) {
-                return BlocProvider.value(
-                  value: homeBloc,
-                  child: StatefulBuilder(
-                      builder: (BuildContext context, StateSetter setState) {
-                    return SingleChildScrollView(
+                return StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return BlocProvider.value(
+                    value: widget.homeBloc,
+                    child: SingleChildScrollView(
                       child: Container(
                         color: AppColor.backGroundColor,
                         child: Column(children: [
@@ -201,9 +199,8 @@ class _ProductCardState extends State<ProductCard> {
                                                     : null,
                                               ),
                                               onPressed: () {
-                                                BlocProvider.of<HomeBloc>(
-                                                        context)
-                                                    .add(AddWishListIconClickedEvent(
+                                                widget.homeBloc.add(
+                                                    AddWishListIconClickedEvent(
                                                         clickedProducts: widget
                                                             .productDataModel));
                                               },
@@ -255,9 +252,9 @@ class _ProductCardState extends State<ProductCard> {
                           )
                         ]),
                       ),
-                    );
-                  }),
-                );
+                    ),
+                  );
+                });
               });
         },
       ),

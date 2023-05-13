@@ -1,5 +1,6 @@
 import 'package:catalog_item_product/data/wish_list_tems.dart';
-import 'package:catalog_item_product/widget/product_card.dart';
+import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
+import 'package:catalog_item_product/module/home/widget/product_card.dart';
 import 'package:flutter/material.dart';
 
 class WishListPage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _WishListPageState extends State<WishListPage> {
         children: wishListItems.map((data) {
           return ProductCard(
             productDataModel: data,
+            homeBloc: HomeBloc(),
           );
         }).toList(),
       ),

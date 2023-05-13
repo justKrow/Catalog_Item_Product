@@ -1,8 +1,8 @@
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
-import 'package:catalog_item_product/widget/brand_row.dart';
-import 'package:catalog_item_product/widget/category_row_list.dart';
-import 'package:catalog_item_product/widget/product_card.dart';
+import 'package:catalog_item_product/module/home/widget/brand_row.dart';
+import 'package:catalog_item_product/module/home/widget/category_row_list.dart';
+import 'package:catalog_item_product/module/home/widget/product_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,12 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
+    homeBloc.add(HomeInitialEvent());
     super.initState();
   }
 
+  final HomeBloc homeBloc = HomeBloc();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
+      bloc: homeBloc,
+      listenWhen: (previous, current) => current is HomeActionState,
+      buildWhen: (previous, current) => current is! HomeActionState,
       listener: (context, state) {
         if (state is HomeAddToWishListState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -175,6 +180,7 @@ class _HomePageState extends State<HomePage> {
                     children: successState.products.map((data) {
                       return ProductCard(
                         productDataModel: data,
+                        homeBloc: homeBloc,
                       );
                     }).toList(),
                   )
@@ -189,7 +195,9 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(color: Colors.black),
             )));
           default:
-            return const SizedBox();
+            return const SizedBox(
+              child: Text('Hi'),
+            );
         }
       },
     );
