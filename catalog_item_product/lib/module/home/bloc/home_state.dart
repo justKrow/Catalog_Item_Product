@@ -2,10 +2,12 @@
 part of 'home_bloc.dart';
 
 @immutable
-abstract class HomeState {}
+abstract class HomeState {
+  bool get isClicked => false;
+}
 
 @immutable
-abstract class HomeActionState {}
+abstract class HomeActionState extends HomeState {}
 
 class HomeInitial extends HomeState {}
 
@@ -17,8 +19,11 @@ class HomeLoadingSuccessfulState extends HomeState {
   HomeLoadingSuccessfulState({required this.products});
 }
 
-class HomeProductDetailState extends HomeState {}
-
-class HomeAddFavState extends HomeActionState {}
-
 class HomeErrorState extends HomeState {}
+
+class HomeAddToWishListState extends HomeActionState {
+  @override
+  final bool isClicked;
+
+  HomeAddToWishListState(this.isClicked);
+}

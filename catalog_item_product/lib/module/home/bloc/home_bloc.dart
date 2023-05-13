@@ -14,8 +14,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(onHomeInitialEvent);
-    on<AddFavIconClickedEvent>(onAddFavIconClickedEvent);
-    on<ProductDetailsViewClickedEvent>(onProductDetailsViewClickedEvent);
+    on<AddWishListIconClickedEvent>(onAddWishListIconClickedEvent);
   }
 
   FutureOr<void> onHomeInitialEvent(
@@ -35,15 +34,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  FutureOr<void> onAddFavIconClickedEvent(
-      AddFavIconClickedEvent event, Emitter<HomeState> emit) {
+  FutureOr<void> onAddWishListIconClickedEvent(
+      AddWishListIconClickedEvent event, Emitter<HomeState> emit) {
     wishListItems.add(event.clickedProducts);
-  }
-
-  FutureOr<void> onProductDetailsViewClickedEvent(
-      ProductDetailsViewClickedEvent event, Emitter<HomeState> emit) async {
-    emit(HomeLoadingState());
-    await Future.delayed(const Duration(seconds: 1));
-    emit(HomeProductDetailState());
+    emit(HomeAddToWishListState(!state.isClicked));
   }
 }

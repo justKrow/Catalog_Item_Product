@@ -5,10 +5,8 @@ abstract class HomeEvent {}
 
 class HomeInitialEvent extends HomeEvent {}
 
-class AddFavIconClickedEvent extends HomeEvent {
+class AddWishListIconClickedEvent extends HomeEvent {
   final ProductDataModel clickedProducts;
 
-  AddFavIconClickedEvent({required this.clickedProducts});
+  AddWishListIconClickedEvent({required this.clickedProducts});
 }
-
-class ProductDetailsViewClickedEvent extends HomeEvent {}
