@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
+import 'package:catalog_item_product/data/product_data.dart';
+import 'package:catalog_item_product/data/wish_list_data.dart';
+import 'package:catalog_item_product/module/home/model/product_data_model.dart';
+import 'package:equatable/equatable.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
-
-import '../../../data/product_data.dart';
-import '../../../data/wish_list_tems.dart';
-import '../model/product_data_model.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -36,7 +36,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> onAddWishListIconClickedEvent(
       AddWishListIconClickedEvent event, Emitter<HomeState> emit) {
-    wishListItems.add(event.clickedProducts);
-    emit(HomeAddToWishListState(!state.isClicked));
+    emit(HomeAddToWishListState());
+    final productID = event.clickedProducts;
+    if (wishListItems.contains(productID)) {
+      wishListItems.remove(productID);
+    } else {
+      wishListItems.add(event.clickedProducts);
+    }
   }
 }

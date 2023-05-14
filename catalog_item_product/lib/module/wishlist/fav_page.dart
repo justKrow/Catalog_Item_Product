@@ -1,4 +1,4 @@
-import 'package:catalog_item_product/data/wish_list_tems.dart';
+import 'package:catalog_item_product/data/wish_list_data.dart';
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/module/home/widget/product_card.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,6 @@ class _WishListPageState extends State<WishListPage> {
     return SafeArea(
         child: Scaffold(
       body: GridView.count(
-        physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
         childAspectRatio: 0.85,
         shrinkWrap: true,

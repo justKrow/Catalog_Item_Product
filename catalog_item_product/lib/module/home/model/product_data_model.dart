@@ -1,4 +1,8 @@
-class ProductDataModel {
+// ignore_for_file: must_be_immutable
+
+import 'package:equatable/equatable.dart';
+
+class ProductDataModel extends Equatable {
   String? id;
   String? brandTitle;
   String? productName;
@@ -12,4 +16,7 @@ class ProductDataModel {
     productName = json['productName'];
     imageUrl = json['imageUrl'];
   }
+
+  @override
+  List<Object?> get props => [id, brandTitle, productName, imageUrl];
 }
