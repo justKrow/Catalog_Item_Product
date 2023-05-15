@@ -53,6 +53,7 @@ class _ProductCardState extends State<ProductCard> {
                 top: MediaQuery.of(context).size.height * 0.015,
                 right: MediaQuery.of(context).size.width * 0.03,
                 child: BlocBuilder<HomeBloc, HomeState>(
+                  bloc: widget.homeBloc,
                   builder: (context, state) {
                     if (state is HomeAddToWishListState) {
                       isClicked =
@@ -64,9 +65,11 @@ class _ProductCardState extends State<ProductCard> {
                         color: isClicked ? AppColor.darkBlueColor : null,
                       ),
                       onPressed: () {
-                        context.read<HomeBloc>().add(
-                            AddWishListIconClickedEvent(
-                                clickedProducts: widget.productDataModel));
+                        widget.homeBloc.add(AddWishListIconClickedEvent(
+                            clickedProducts: widget.productDataModel));
+                        setState(() {
+                          isClicked = isClicked;
+                        });
                       },
                     );
                   },
@@ -194,6 +197,7 @@ class _ProductCardState extends State<ProductCard> {
                                             color: AppColor.appBlack),
                                       ),
                                       BlocBuilder<HomeBloc, HomeState>(
+                                        bloc: widget.homeBloc,
                                         builder: (context, state) {
                                           if (state is HomeAddToWishListState) {
                                             isClicked = wishListItems.contains(
@@ -209,10 +213,13 @@ class _ProductCardState extends State<ProductCard> {
                                                   : null,
                                             ),
                                             onPressed: () {
-                                              context.read<HomeBloc>().add(
+                                              widget.homeBloc.add(
                                                   AddWishListIconClickedEvent(
                                                       clickedProducts: widget
                                                           .productDataModel));
+                                              setState(() {
+                                                isClicked = isClicked;
+                                              });
                                             },
                                           );
                                         },

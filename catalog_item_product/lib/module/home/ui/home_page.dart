@@ -1,3 +1,4 @@
+import 'package:catalog_item_product/data/wish_list_data.dart';
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
 import 'package:catalog_item_product/module/home/widget/brand_row.dart';
@@ -24,16 +25,9 @@ class _HomePageState extends State<HomePage> {
   final HomeBloc homeBloc = HomeBloc();
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
+    return BlocBuilder<HomeBloc, HomeState>(
       bloc: homeBloc,
-      listenWhen: (previous, current) => current is HomeActionState,
       buildWhen: (previous, current) => current is! HomeActionState,
-      listener: (context, state) {
-        if (state is HomeAddToWishListState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Item added to WishList')));
-        }
-      },
       builder: (context, state) {
         switch (state.runtimeType) {
           case HomeLoadingState:
