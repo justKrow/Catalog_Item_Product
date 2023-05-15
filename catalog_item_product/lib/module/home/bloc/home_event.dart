@@ -16,3 +16,8 @@ class AddWishListIconClickedEvent extends HomeEvent {
   @override
   List<Object?> get props => [clickedProducts];
 }
+
+class SearchBarNavigateEvent extends HomeEvent {
+  @override
+  List<Object?> get props => [];
+}

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:catalog_item_product/data/product_data.dart';
 import 'package:catalog_item_product/data/wish_list_data.dart';
 import 'package:catalog_item_product/module/home/model/product_data_model.dart';
+import 'package:catalog_item_product/module/home/ui/home_page.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
