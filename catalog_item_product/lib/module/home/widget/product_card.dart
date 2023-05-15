@@ -210,7 +210,7 @@ class _ProductCardState extends State<ProductCard> {
                                                   : Icons.favorite_border,
                                               color: isClicked
                                                   ? AppColor.darkBlueColor
-                                                  : null,
+                                                  : AppColor.darkBlueColor,
                                             ),
                                             onPressed: () {
                                               widget.homeBloc.add(

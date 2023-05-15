@@ -1,4 +1,3 @@
-import 'package:catalog_item_product/data/wish_list_data.dart';
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
 import 'package:catalog_item_product/module/home/widget/brand_row.dart';
