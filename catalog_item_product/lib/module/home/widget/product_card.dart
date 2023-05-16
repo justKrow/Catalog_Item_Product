@@ -123,152 +123,202 @@ class _ProductCardState extends State<ProductCard> {
                 return BlocProvider.value(
                   value: widget.homeBloc,
                   child: SingleChildScrollView(
-                    child: Container(
-                      color: AppColor.backGroundColor,
-                      child: Column(children: [
-                        ListTile(
-                          leading: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: Icon(
-                                FontAwesomeIcons.arrowLeftLong,
-                                size: 20,
-                                color: AppColor.appBlack,
-                              )),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.55,
-                          child: Swiper(
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        widget.productDataModel.imageUrl!),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              );
-                            },
-                            itemCount: 3,
-                            pagination: const SwiperPagination(),
-                            viewportFraction: 0.8,
-                            scale: 0.9,
+                    child: Stack(children: [
+                      Container(
+                        color: AppColor.backGroundColor,
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          ListTile(
+                            leading: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  FontAwesomeIcons.arrowLeftLong,
+                                  size: 20,
+                                  color: AppColor.appBlack,
+                                )),
                           ),
-                        ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          decoration: BoxDecoration(
-                              color: AppColor.mainColor,
-                              borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(40),
-                                  topRight: Radius.circular(40))),
-                          child: Container(
-                            margin: const EdgeInsets.all(30),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    widget.productDataModel.brandTitle!,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 20,
-                                        color: AppColor.darkBlueColor),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.55,
+                            child: Swiper(
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          widget.productDataModel.imageUrl!),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        widget.productDataModel.productName!,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 32,
-                                            color: AppColor.appBlack),
-                                      ),
-                                      BlocBuilder<HomeBloc, HomeState>(
-                                        bloc: widget.homeBloc,
-                                        builder: (context, state) {
-                                          if (state is HomeAddToWishListState) {
-                                            isClicked = wishListItems.contains(
-                                                widget.productDataModel);
-                                          }
-                                          return IconButton(
-                                            icon: Icon(
-                                              isClicked
-                                                  ? Icons.favorite
-                                                  : Icons.favorite_border,
-                                              color: isClicked
-                                                  ? AppColor.darkBlueColor
-                                                  : AppColor.darkBlueColor,
-                                            ),
-                                            onPressed: () {
-                                              widget.homeBloc.add(
-                                                  AddWishListIconClickedEvent(
-                                                      clickedProducts: widget
-                                                          .productDataModel));
-                                              setState(() {
-                                                isClicked = isClicked;
-                                              });
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        "Color - ",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 20,
-                                            color: AppColor.appBlack),
-                                      ),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                              Icons.circle_outlined)),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.circle_rounded,
-                                            color: Colors.black,
-                                          )),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.circle_rounded,
-                                            color: Colors.blue,
-                                          )),
-                                      IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.circle_rounded,
-                                            color: Colors.red,
-                                          )),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                );
+                              },
+                              itemCount: 3,
+                              pagination: const SwiperPagination(),
+                              viewportFraction: 0.8,
+                              scale: 0.9,
                             ),
                           ),
-                        )
-                      ]),
-                    ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                                color: AppColor.mainColor,
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(40),
+                                    topRight: Radius.circular(40))),
+                            child: Container(
+                              margin: const EdgeInsets.all(30),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      widget.productDataModel.brandTitle!,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 20,
+                                          color: AppColor.darkBlueColor),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          widget.productDataModel.productName!,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 32,
+                                              color: AppColor.appBlack),
+                                        ),
+                                        BlocBuilder<HomeBloc, HomeState>(
+                                          bloc: widget.homeBloc,
+                                          builder: (context, state) {
+                                            if (state
+                                                is HomeAddToWishListState) {
+                                              isClicked =
+                                                  wishListItems.contains(
+                                                      widget.productDataModel);
+                                            }
+                                            return IconButton(
+                                              icon: Icon(
+                                                isClicked
+                                                    ? Icons.favorite
+                                                    : Icons.favorite_border,
+                                                color: isClicked
+                                                    ? AppColor.darkBlueColor
+                                                    : AppColor.darkBlueColor,
+                                              ),
+                                              onPressed: () {
+                                                widget.homeBloc.add(
+                                                    AddWishListIconClickedEvent(
+                                                        clickedProducts: widget
+                                                            .productDataModel));
+                                                setState(() {
+                                                  isClicked = isClicked;
+                                                });
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "Color - ",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 20,
+                                              color: AppColor.appBlack),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                                Icons.circle_outlined)),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.circle_rounded,
+                                              color: Colors.black,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.circle_rounded,
+                                              color: Colors.blue,
+                                            )),
+                                        IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.circle_rounded,
+                                              color: Colors.red,
+                                            )),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: AppColor.appBlack,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: AppColor.appBlack,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. ',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: AppColor.appBlack,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 16,
+                                        color: AppColor.appBlack,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                        ]),
+                      ),
+                    ]),
                   ),
                 );
               });
