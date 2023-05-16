@@ -1,6 +1,5 @@
 import 'package:catalog_item_product/config/routes/context_ext.dart';
 import 'package:catalog_item_product/data/product_list_data.dart';
-import 'package:catalog_item_product/data/search_data.dart';
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/module/home/model/product_data_model.dart';
 import 'package:catalog_item_product/module/home/widget/product_card.dart';
@@ -16,6 +15,7 @@ class SearchPage extends StatefulWidget {
 }
 
 final TextEditingController searchController = TextEditingController();
+List<ProductDataModel> searchList = [];
 
 List<ProductDataModel> _searchList(
     List<ProductDataModel> productList, String query) {

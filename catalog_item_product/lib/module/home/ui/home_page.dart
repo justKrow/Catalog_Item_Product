@@ -188,9 +188,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(color: Colors.black),
             )));
           default:
-            return const SizedBox(
-              child: Text('Hi'),
-            );
+            return const SizedBox();
         }
       },
     );
