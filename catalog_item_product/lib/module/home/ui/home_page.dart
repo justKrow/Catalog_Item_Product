@@ -1,5 +1,4 @@
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
-import 'package:catalog_item_product/module/search/ui/search_page.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
 import 'package:catalog_item_product/module/home/widget/brand_row.dart';
 import 'package:catalog_item_product/module/home/widget/category_row_list.dart';

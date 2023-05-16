@@ -1,3 +1,5 @@
+import 'package:catalog_item_product/config/routes/context_ext.dart';
+import 'package:catalog_item_product/config/routes/routes.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +29,7 @@ class SideBar extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                context.toName(Routes.homeScreenRoute);
               },
               child: Text(
                 'Home',

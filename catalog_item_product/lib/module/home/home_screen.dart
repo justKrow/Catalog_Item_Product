@@ -1,5 +1,6 @@
 import 'package:catalog_item_product/config/routes/context_ext.dart';
 import 'package:catalog_item_product/config/routes/routes.dart';
+import 'package:catalog_item_product/local%20storage/wishlist_storage.dart';
 import 'package:catalog_item_product/module/home/ui/home_page.dart';
 import 'package:catalog_item_product/module/wishlist/fav_page.dart';
 import 'package:catalog_item_product/module/profile/profile_page.dart';
@@ -22,6 +23,13 @@ class _HomeScreenState extends State<HomeScreen> {
     const WishListPage(),
     const ProfilePage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    loadWishlistItems();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

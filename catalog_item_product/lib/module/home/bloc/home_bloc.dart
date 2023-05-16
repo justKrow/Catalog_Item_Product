@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:catalog_item_product/data/product_data.dart';
+import 'package:catalog_item_product/data/product_list_data.dart';
 import 'package:catalog_item_product/data/wish_list_data.dart';
+import 'package:catalog_item_product/local%20storage/wishlist_storage.dart';
 import 'package:catalog_item_product/module/home/model/product_data_model.dart';
-import 'package:catalog_item_product/module/home/ui/home_page.dart';
 import 'package:equatable/equatable.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
@@ -16,12 +17,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<HomeInitialEvent>(onHomeInitialEvent);
     on<AddWishListIconClickedEvent>(onAddWishListIconClickedEvent);
+    loadWishlistItems().then((items) {
+      wishListItems = items;
+    });
   }
 
   FutureOr<void> onHomeInitialEvent(
       HomeInitialEvent event, Emitter<HomeState> emit) async {
     emit(HomeLoadingState());
-    List<ProductDataModel> productList = [];
+
     await Future.delayed(const Duration(seconds: 1));
     try {
       var datas = jsonDecode(ProductData().products);
@@ -44,5 +48,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else {
       wishListItems.add(event.clickedProducts);
     }
+    saveWishlistItems(wishListItems);
   }
 }

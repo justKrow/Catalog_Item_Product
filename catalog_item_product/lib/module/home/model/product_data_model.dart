@@ -17,6 +17,13 @@ class ProductDataModel extends Equatable {
     imageUrl = json['imageUrl'];
   }
 
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'brandTitle': brandTitle,
+        'productName': productName,
+        'imageUrl': imageUrl
+      };
+
   @override
   List<Object?> get props => [id, brandTitle, productName, imageUrl];
 }
