@@ -37,8 +37,8 @@ class _ProductCardState extends State<ProductCard> {
         Stack(
           children: [
             Container(
-              margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               width: MediaQuery.of(context).size.width * 0.4,
+              margin: const EdgeInsets.fromLTRB(15, 15, 15, 0),
               height: MediaQuery.of(context).size.width * 0.35,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(

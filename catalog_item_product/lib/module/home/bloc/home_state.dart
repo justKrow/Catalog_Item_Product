@@ -2,36 +2,21 @@
 part of 'home_bloc.dart';
 
 @immutable
-abstract class HomeState extends Equatable {}
+abstract class HomeState {}
 
 @immutable
 abstract class HomeActionState extends HomeState {}
 
-class HomeInitial extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
+class HomeInitial extends HomeState {}
 
-class HomeLoadingState extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
+class HomeLoadingState extends HomeState {}
 
 class HomeLoadingSuccessfulState extends HomeState {
   final List<ProductDataModel> products;
 
   HomeLoadingSuccessfulState({required this.products});
-
-  @override
-  List<Object?> get props => [products];
 }
 
-class HomeErrorState extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
+class HomeErrorState extends HomeState {}
 
-class HomeAddToWishListState extends HomeActionState {
-  @override
-  List<Object?> get props => [];
-}
+class HomeAddToWishListState extends HomeActionState {}
