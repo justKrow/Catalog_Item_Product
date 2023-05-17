@@ -25,14 +25,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       HomeInitialEvent event, Emitter<HomeState> emit) async {
     emit(HomeLoadingState());
 
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 10));
     try {
       var datas = jsonDecode(ProductData().products);
       productList.clear();
       for (var data in datas) {
         productList.add(ProductDataModel.fromJson(data));
       }
-
       emit(HomeLoadingSuccessfulState(products: productList));
     } catch (e) {
       emit(HomeErrorState());

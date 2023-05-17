@@ -1,6 +1,7 @@
 import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/module/home/home_screen.dart';
 import 'package:catalog_item_product/module/home/ui/home_page.dart';
+import 'package:catalog_item_product/module/search/bloc/search_bloc.dart';
 import 'package:catalog_item_product/module/search/ui/search_page.dart';
 import 'package:catalog_item_product/module/wishlist/wish_list_page.dart';
 import 'package:catalog_item_product/module/profile/profile_page.dart';
@@ -40,7 +41,10 @@ class Routes {
         );
       case searchPageRoute:
         return makeRoute(
-          const SearchPage(),
+          BlocProvider(
+            create: (context) => SearchBloc(),
+            child: const SearchPage(),
+          ),
           settings,
         );
       default:

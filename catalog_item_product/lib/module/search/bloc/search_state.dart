@@ -3,6 +3,10 @@ part of 'search_bloc.dart';
 @immutable
 abstract class SearchState {}
 
-class SearchInitial extends SearchState {}
+class SearchInitialState extends SearchState {}
 
-class SearchLoading extends SearchState {}
+class SearchTypingState extends SearchState {}
+
+class SearchLoadingState extends SearchState {}
+
+class SearchLoadedState extends SearchState {}
