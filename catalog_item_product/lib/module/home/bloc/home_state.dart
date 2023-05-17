@@ -20,3 +20,7 @@ class HomeLoadingSuccessfulState extends HomeState {
 class HomeErrorState extends HomeState {}
 
 class HomeAddToWishListState extends HomeActionState {}
+
+class WishListReloadState extends HomeState {}
+
+class WishListReloadedState extends HomeState {}

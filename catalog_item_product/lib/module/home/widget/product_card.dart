@@ -68,7 +68,7 @@ class _ProductCardState extends State<ProductCard> {
                       onPressed: () {
                         widget.homeBloc.add(AddWishListIconClickedEvent(
                             clickedProducts: widget.productDataModel));
-
+                        widget.homeBloc.add(WishListReloadEvent());
                         setState(() {
                           isClicked = isClicked;
                         });

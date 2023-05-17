@@ -14,11 +14,16 @@ class WishListPage extends StatefulWidget {
 class _WishListPageState extends State<WishListPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
-      buildWhen: (previous, current) => current is! HomeActionState,
+    final homeBloc = BlocProvider.of<HomeBloc>(context);
+    return SafeArea(child: BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
+        if (wishListItems.isEmpty) {
+          return const Scaffold(
+            body: Center(
+              child: Text('No item in Wishlist yet'),
+            ),
+          );
+        }
         return Scaffold(
           body: GridView.count(
             crossAxisCount: 2,
@@ -27,7 +32,7 @@ class _WishListPageState extends State<WishListPage> {
             children: wishListItems.map((data) {
               return ProductCard(
                 productDataModel: data,
-                homeBloc: HomeBloc(),
+                homeBloc: homeBloc,
               );
             }).toList(),
           ),

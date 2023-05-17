@@ -12,3 +12,5 @@ class AddWishListIconClickedEvent extends HomeEvent {
 }
 
 class SearchBarNavigateEvent extends HomeEvent {}
+
+class WishListReloadEvent extends HomeEvent {}
