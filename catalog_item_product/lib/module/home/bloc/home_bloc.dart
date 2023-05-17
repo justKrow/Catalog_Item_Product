@@ -29,6 +29,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     await Future.delayed(const Duration(seconds: 1));
     try {
       var datas = jsonDecode(ProductData().products);
+      productList.clear();
       for (var data in datas) {
         productList.add(ProductDataModel.fromJson(data));
       }

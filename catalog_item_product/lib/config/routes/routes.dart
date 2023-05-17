@@ -2,7 +2,7 @@ import 'package:catalog_item_product/module/home/bloc/home_bloc.dart';
 import 'package:catalog_item_product/module/home/home_screen.dart';
 import 'package:catalog_item_product/module/home/ui/home_page.dart';
 import 'package:catalog_item_product/module/search/ui/search_page.dart';
-import 'package:catalog_item_product/module/wishlist/fav_page.dart';
+import 'package:catalog_item_product/module/wishlist/wish_list_page.dart';
 import 'package:catalog_item_product/module/profile/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

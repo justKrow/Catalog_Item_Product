@@ -2,7 +2,7 @@ import 'package:catalog_item_product/config/routes/context_ext.dart';
 import 'package:catalog_item_product/config/routes/routes.dart';
 import 'package:catalog_item_product/local%20storage/wishlist_storage.dart';
 import 'package:catalog_item_product/module/home/ui/home_page.dart';
-import 'package:catalog_item_product/module/wishlist/fav_page.dart';
+import 'package:catalog_item_product/module/wishlist/wish_list_page.dart';
 import 'package:catalog_item_product/module/profile/profile_page.dart';
 import 'package:catalog_item_product/utils/color_constant.dart';
 import 'package:catalog_item_product/module/home/widget/side_bar.dart';
