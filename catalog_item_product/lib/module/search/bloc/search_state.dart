@@ -5,7 +5,11 @@ abstract class SearchState {}
 
 class SearchInitialState extends SearchState {}
 
-class SearchTypingState extends SearchState {}
+class SearchTypingState extends SearchState {
+  final String query;
+
+  SearchTypingState({required this.query});
+}
 
 class SearchLoadingState extends SearchState {}
 

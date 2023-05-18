@@ -15,6 +15,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<SearchEvent>((event, emit) {});
     on<SearchInitialEvent>(onSearchInitialEvent);
     on<SearchTypingEvent>(onSearchTypingEvent);
+    on<SearchClickedEvent>(onSearchClickedEvent);
   }
 
   FutureOr<void> onSearchInitialEvent(
@@ -25,7 +26,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   FutureOr<void> onSearchTypingEvent(
       SearchTypingEvent event, Emitter<SearchState> emit) {
     searchList = _searchList(productList, event.query);
-    emit(SearchTypingState());
+    emit(SearchTypingState(query: event.query));
+  }
+
+  FutureOr<void> onSearchClickedEvent(
+      SearchClickedEvent event, Emitter<SearchState> emit) {
+    emit(SearchLoadedState());
   }
 }
 

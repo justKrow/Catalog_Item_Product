@@ -49,30 +49,32 @@ class _SearchPageState extends State<SearchPage> {
       body: ListView(
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColor.mainColor),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                child: TextField(
-                    controller: searchController,
-                    cursorColor: AppColor.darkBlueColor,
-                    decoration: InputDecoration(
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Search for Product',
-                      icon: Icon(
-                        FontAwesomeIcons.magnifyingGlass,
-                        size: 16,
-                        color: AppColor.appBlack,
-                      ),
-                    ),
-                    onChanged: (query) {
-                      context.read<SearchBloc>().add(SearchTypingEvent(query));
-                    }),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            child: ListTile(
+              tileColor: AppColor.mainColor,
+              leading: const Icon(
+                FontAwesomeIcons.magnifyingGlass,
+                size: 16,
               ),
+              title: TextField(
+                  controller: searchController,
+                  cursorColor: AppColor.darkBlueColor,
+                  decoration: const InputDecoration(
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    hintText: 'Search for Product',
+                  ),
+                  onChanged: (query) {
+                    context.read<SearchBloc>().add(SearchTypingEvent(query));
+                  }),
+              trailing: TextButton(
+                  onPressed: () {
+                    context.read<SearchBloc>().add(SearchClickedEvent());
+                  },
+                  child: Text(
+                    "Search",
+                    style: TextStyle(color: AppColor.darkBlueColor),
+                  )),
             ),
           ),
           BlocBuilder<SearchBloc, SearchState>(
@@ -133,20 +135,104 @@ class _SearchPageState extends State<SearchPage> {
                 );
               }
               if (state is SearchTypingState) {
-                return GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.85,
-                  children: searchList.map((data) {
-                    return ProductCard(
-                      productDataModel: data,
-                      homeBloc: HomeBloc(),
+                return BlocBuilder<SearchBloc, SearchState>(
+                  builder: (context, state) {
+                    final typingState = state as SearchTypingState;
+                    if (searchList.isEmpty) {
+                      return const Center(
+                        child: Text('No item matches your description'),
+                      );
+                    }
+                    if (typingState.query.isEmpty) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: AppColor.mainColor),
+                        child: Column(
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: const ListTile(
+                                leading: Icon(
+                                  Icons.trending_up,
+                                  size: 20,
+                                ),
+                                title: Text(
+                                  'NIKE',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const ListTile(
+                                leading: Icon(
+                                  Icons.trending_up,
+                                  size: 20,
+                                ),
+                                title: Text(
+                                  'Sneakers',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},
+                              child: const ListTile(
+                                leading: Icon(
+                                  Icons.trending_up,
+                                  size: 20,
+                                ),
+                                title: Text(
+                                  'Shirts',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 14),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    return GestureDetector(
+                      onTap: () {
+                        context.read<SearchBloc>().add(SearchClickedEvent());
+                      },
+                      child: ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: searchList.map((data) {
+                          return GestureDetector(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ListTile(
+                                tileColor: AppColor.mainColor,
+                                leading: Text(
+                                  data.brandTitle.toString(),
+                                ),
+                                title: Text(data.productName.toString()),
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
                     );
-                  }).toList(),
+                  },
                 );
               }
               if (state is SearchLoadedState) {
+                if (searchList.isEmpty) {
+                  return const Center(
+                    child: Text('No item matches your description'),
+                  );
+                }
                 return GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
