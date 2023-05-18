@@ -8,7 +8,7 @@ class SearchInitialEvent extends SearchEvent {}
 class SearchTypingEvent extends SearchEvent {
   final String query;
 
-  SearchTypingEvent(this.query);
+  SearchTypingEvent({required this.query});
 }
 
 class SearchClickedEvent extends SearchEvent {}

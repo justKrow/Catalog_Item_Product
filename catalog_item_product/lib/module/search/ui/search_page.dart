@@ -65,7 +65,9 @@ class _SearchPageState extends State<SearchPage> {
                     hintText: 'Search for Product',
                   ),
                   onChanged: (query) {
-                    context.read<SearchBloc>().add(SearchTypingEvent(query));
+                    context
+                        .read<SearchBloc>()
+                        .add(SearchTypingEvent(query: query));
                   }),
               trailing: TextButton(
                   onPressed: () {
@@ -209,17 +211,12 @@ class _SearchPageState extends State<SearchPage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: searchList.map((data) {
-                          return GestureDetector(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                tileColor: AppColor.mainColor,
-                                leading: Text(
-                                  data.brandTitle.toString(),
-                                ),
-                                title: Text(data.productName.toString()),
-                              ),
-                            ),
+                          return ListTile(
+                            tileColor: AppColor.mainColor,
+                            leading: _buildSuggestion(
+                                data.brandTitle.toString(), state.query),
+                            title: _buildSuggestion(
+                                data.productName.toString(), state.query),
                           );
                         }).toList(),
                       ),
@@ -233,17 +230,46 @@ class _SearchPageState extends State<SearchPage> {
                     child: Text('No item matches your description'),
                   );
                 }
-                return GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.85,
-                  children: searchList.map((data) {
-                    return ProductCard(
-                      productDataModel: data,
-                      homeBloc: HomeBloc(),
-                    );
-                  }).toList(),
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Container(
+                        color: AppColor.mainColor,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                '${searchList.length} items found',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Color(0xff666666)),
+                              ),
+                            ),
+                            const Row(
+                              children: [],
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    GridView.count(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.85,
+                      children: searchList.map((data) {
+                        return ProductCard(
+                          productDataModel: data,
+                          homeBloc: HomeBloc(),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 );
               }
               return const Center();
@@ -256,4 +282,43 @@ class _SearchPageState extends State<SearchPage> {
       ),
     ));
   }
+}
+
+RichText _buildSuggestion(String suggestion, String query) {
+  final lowercaseSuggestion = suggestion.toLowerCase();
+  final lowercaseQuery = query.toLowerCase();
+
+  List<TextSpan> textSpans = [];
+
+  int start = 0;
+  int index = lowercaseSuggestion.indexOf(lowercaseQuery);
+
+  while (index >= 0) {
+    // Add the text before the match
+    if (start < index) {
+      textSpans.add(TextSpan(
+        text: suggestion.substring(start, index),
+        style: const TextStyle(color: Colors.grey),
+      ));
+    }
+
+    // Add the matched text with bold style
+    textSpans.add(TextSpan(
+      text: suggestion.substring(index, index + query.length),
+      style: TextStyle(color: AppColor.appBlack),
+    ));
+
+    start = index + query.length;
+    index = lowercaseSuggestion.indexOf(lowercaseQuery, start);
+  }
+
+  // Add the remaining text after the last match
+  if (start < suggestion.length) {
+    textSpans.add(TextSpan(
+      text: suggestion.substring(start),
+      style: const TextStyle(color: Colors.grey),
+    ));
+  }
+
+  return RichText(text: TextSpan(children: textSpans));
 }
